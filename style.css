@@ -1,0 +1,394 @@
+/* متغيرات CSS العامة */
+:root {
+    --primary-color: #00f7ff;
+    --secondary-color: #4eff91;
+    --bg-dark: #0a1128;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --text-color: white;
+    --light-bg: #f5f5f5;
+    --light-text: #333;
+    --light-glass-bg: rgba(255, 255, 255, 0.7);
+    --light-glass-border: rgba(0, 0, 0, 0.1);
+}
+
+/* إعادة تعيين الأنماط الافتراضية */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-dark), #000);
+    min-height: 100vh;
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+}
+
+body.light-mode {
+    background: linear-gradient(135deg, var(--light-bg), #fff);
+    color: var(--light-text);
+}
+
+/* زر تبديل الوضع الليلي/النهاري */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+#theme-switch {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#theme-switch:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+/* تنسيق الحاوية الرئيسية */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* تنسيق البطاقات الزجاجية */
+.calculator-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-mode .calculator-card {
+    background: var(--light-glass-bg);
+    border: 1px solid var(--light-glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+.calculator-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+.calculator-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* تنسيق علامات التبويب */
+.card-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+body.light-mode .tab-btn {
+    color: var(--light-text);
+}
+
+.tab-btn.active {
+    opacity: 1;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-btn:hover {
+    opacity: 1;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* تنسيق مجموعات الإدخال */
+.input-group {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+input, select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+body.light-mode input, body.light-mode select {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--light-text);
+    border: 1px solid var(--light-glass-border);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 247, 255, 0.2);
+}
+
+/* تنسيق النتائج */
+.result {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+body.light-mode .result {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.chart-container {
+    margin: 1.5rem 0;
+    height: 200px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.action-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-dark);
+}
+
+body.light-mode .action-btn {
+    background: var(--light-glass-bg);
+    color: var(--light-text);
+}
+
+/* تنسيق معاينة النسبة */
+.aspect-preview {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+}
+
+.frame {
+    border: 2px solid var(--primary-color);
+    background: rgba(0, 0, 0, 0.3);
+    width: 160px;
+    height: 90px;
+    position: relative;
+}
+
+#original-frame::before {
+    content: 'الأصلي';
+    position: absolute;
+    top: -25px;
+    right: 0;
+    font-size: 0.8rem;
+}
+
+#new-frame::before {
+    content: 'الجديد';
+    position: absolute;
+    top: -25px;
+    right: 0;
+    font-size: 0.8rem;
+}
+
+.result span {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* الرسوم المتحركة */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(0, 247, 255, 0.2),
+                     0 0 20px rgba(0, 247, 255, 0.2),
+                     0 0 30px rgba(0, 247, 255, 0.2);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(0, 247, 255, 0.4),
+                     0 0 30px rgba(0, 247, 255, 0.4),
+                     0 0 40px rgba(0, 247, 255, 0.4);
+    }
+}
+
+/* المعادلات الرياضية */
+.math-explanation {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--card-shadow);
+}
+
+body.light-mode .math-explanation {
+    background: var(--light-glass-bg);
+    border: 1px solid var(--light-glass-border);
+}
+
+.math-explanation h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.equation-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+body.light-mode .equation-card {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.equation-card h4 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* تذييل الصفحة */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* التصميم المتجاوب */
+@media (min-width: 768px) {
+    .input-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        margin: 1rem auto;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .calculator-card {
+        padding: 1.5rem;
+    }
+    
+    .card-tabs {
+        flex-direction: column;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
+/* تأثيرات المؤشر */
+.calculator-card {
+    cursor: default;
+}
+
+input, select {
+    cursor: pointer;
+}
+
+input:hover, select:hover {
+    background: rgba(255, 255, 255, 0.15);
+}

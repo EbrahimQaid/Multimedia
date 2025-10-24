@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة وكفاءة الوسائط</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-switch"><i class="fas fa-moon"></i></button>
+    </div>
+    <div class="container">
+        <h1>حاسبة وكفاءة الوسائط</h1>
+        <div class="description">
+            <p>أدوات حسابية تفاعلية تربط المفاهيم الرياضية بتقنيات الوسائط المتعددة</p>
+        </div>
+        
+        <div class="calculator-card" id="file-size-calculator">
+            <h2>🧮 حاسبة حجم الملف</h2>
+            <div class="card-tabs">
+                <button class="tab-btn active" data-tab="basic-file-size">أساسي</button>
+                <button class="tab-btn" data-tab="advanced-file-size">متقدم</button>
+            </div>
+            <div class="tab-content active" id="basic-file-size">
+                <div class="input-group">
+                    <label for="resolution-width">العرض (بالبكسل):</label>
+                    <input type="number" id="resolution-width" value="1920">
+                    
+                    <label for="resolution-height">الارتفاع (بالبكسل):</label>
+                    <input type="number" id="resolution-height" value="1080">
+                    
+                    <label for="color-depth">عمق اللون (بت):</label>
+                    <input type="number" id="color-depth" value="24">
+                    
+                    <label for="frame-rate">معدل الإطارات (للفيديو):</label>
+                    <input type="number" id="frame-rate" value="30">
+                    
+                    <label for="duration">المدة (بالثواني):</label>
+                    <input type="number" id="duration" value="60">
+                </div>
+            </div>
+            <div class="tab-content" id="advanced-file-size">
+                <div class="input-group">
+                    <label for="file-format">صيغة الملف:</label>
+                    <select id="file-format">
+                        <option value="raw">غير مضغوط (RAW)</option>
+                        <option value="jpg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="mp4-h264">MP4 (H.264)</option>
+                        <option value="mp4-h265">MP4 (H.265)</option>
+                    </select>
+                    
+                    <label for="compression-level">مستوى الضغط:</label>
+                    <input type="range" id="compression-level" min="0" max="100" value="50">
+                    <span id="compression-level-value">50%</span>
+                </div>
+            </div>
+            <div class="result">
+                <p>الحجم التقريبي: <span id="file-size-result">0</span> ميجابايت</p>
+                <div class="chart-container">
+                    <canvas id="file-size-chart"></canvas>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn" id="save-file-size"><i class="fas fa-save"></i> حفظ النتائج</button>
+                    <button class="action-btn" id="share-file-size"><i class="fas fa-share-alt"></i> مشاركة</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-card" id="aspect-ratio-calculator">
+            <h2>📐 مُحسِّن الأبعاد</h2>
+            <div class="card-tabs">
+                <button class="tab-btn active" data-tab="basic-aspect">أساسي</button>
+                <button class="tab-btn" data-tab="advanced-aspect">متقدم</button>
+            </div>
+            <div class="tab-content active" id="basic-aspect">
+                <div class="input-group">
+                    <label for="original-width">العرض الأصلي:</label>
+                    <input type="number" id="original-width" value="1920">
+                    
+                    <label for="original-height">الارتفاع الأصلي:</label>
+                    <input type="number" id="original-height" value="1080">
+                    
+                    <label for="target-ratio">النسبة المستهدفة:</label>
+                    <select id="target-ratio">
+                        <option value="1:1">1:1 (مربع)</option>
+                        <option value="4:3">4:3</option>
+                        <option value="16:9" selected>16:9</option>
+                        <option value="21:9">21:9</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tab-content" id="advanced-aspect">
+                <div class="input-group">
+                    <label for="custom-ratio-width">نسبة مخصصة (العرض):</label>
+                    <input type="number" id="custom-ratio-width" value="16">
+                    
+                    <label for="custom-ratio-height">نسبة مخصصة (الارتفاع):</label>
+                    <input type="number" id="custom-ratio-height" value="9">
+                    
+                    <label for="crop-method">طريقة الاقتصاص:</label>
+                    <select id="crop-method">
+                        <option value="center">من المنتصف</option>
+                        <option value="top">من الأعلى</option>
+                        <option value="bottom">من الأسفل</option>
+                    </select>
+                </div>
+            </div>
+            <div class="result">
+                <div class="aspect-preview">
+                    <div id="original-frame" class="frame"></div>
+                    <div id="new-frame" class="frame"></div>
+                </div>
+                <p>الأبعاد الجديدة: <span id="new-dimensions">0 × 0</span></p>
+                <p>المساحة المقتصة: <span id="crop-area">0</span> بكسل</p>
+                <div class="action-buttons">
+                    <button class="action-btn" id="save-aspect-ratio"><i class="fas fa-save"></i> حفظ النتائج</button>
+                    <button class="action-btn" id="share-aspect-ratio"><i class="fas fa-share-alt"></i> مشاركة</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-card" id="compression-calculator">
+            <h2>📊 محلل كفاءة الضغط</h2>
+            <div class="card-tabs">
+                <button class="tab-btn active" data-tab="basic-compression">أساسي</button>
+                <button class="tab-btn" data-tab="advanced-compression">متقدم</button>
+            </div>
+            <div class="tab-content active" id="basic-compression">
+                <div class="input-group">
+                    <label for="original-size">الحجم الأصلي (ميجابايت):</label>
+                    <input type="number" id="original-size" value="100">
+                    
+                    <label for="compressed-size">الحجم المضغوط (ميجابايت):</label>
+                    <input type="number" id="compressed-size" value="25">
+                </div>
+            </div>
+            <div class="tab-content" id="advanced-compression">
+                <div class="input-group">
+                    <label for="compression-format">صيغة الضغط:</label>
+                    <select id="compression-format">
+                        <option value="jpg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WebP</option>
+                        <option value="h264">H.264</option>
+                        <option value="h265">H.265</option>
+                    </select>
+                    
+                    <label for="quality-level">مستوى الجودة:</label>
+                    <input type="range" id="quality-level" min="0" max="100" value="80">
+                    <span id="quality-level-value">80%</span>
+                </div>
+            </div>
+            <div class="result">
+                <p>نسبة الضغط: <span id="compression-ratio">0</span>%</p>
+                <p>مقدار التوفير: <span id="saved-space">0</span> ميجابايت</p>
+                <div class="chart-container">
+                    <canvas id="compression-chart"></canvas>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn" id="save-compression"><i class="fas fa-save"></i> حفظ النتائج</button>
+                    <button class="action-btn" id="share-compression"><i class="fas fa-share-alt"></i> مشاركة</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-card" id="audio-quality-calculator">
+            <h2>🎵 حاسبة جودة الصوت</h2>
+            <div class="card-tabs">
+                <button class="tab-btn active" data-tab="basic-audio">أساسي</button>
+                <button class="tab-btn" data-tab="advanced-audio">متقدم</button>
+            </div>
+            <div class="tab-content active" id="basic-audio">
+                <div class="input-group">
+                    <label for="bit-rate">معدل البت (كيلوبت/ثانية):</label>
+                    <input type="number" id="bit-rate" value="320">
+                    
+                    <label for="sample-rate">معدل العينات (كيلوهرتز):</label>
+                    <input type="number" id="sample-rate" value="44.1">
+                    
+                    <label for="audio-duration">مدة الصوت (بالثواني):</label>
+                    <input type="number" id="audio-duration" value="180">
+                </div>
+            </div>
+            <div class="tab-content" id="advanced-audio">
+                <div class="input-group">
+                    <label for="audio-format">صيغة الصوت:</label>
+                    <select id="audio-format">
+                        <option value="mp3">MP3</option>
+                        <option value="aac">AAC</option>
+                        <option value="wav">WAV</option>
+                        <option value="flac">FLAC</option>
+                    </select>
+                    
+                    <label for="channels">عدد القنوات:</label>
+                    <select id="channels">
+                        <option value="1">أحادي (Mono)</option>
+                        <option value="2" selected>ستيريو (Stereo)</option>
+                        <option value="6">محيطي 5.1 (Surround)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="result">
+                <p>حجم الملف: <span id="audio-file-size">0</span> ميجابايت</p>
+                <p>نسبة الإشارة إلى الضوضاء: <span id="snr">0</span> ديسيبل</p>
+                <div class="chart-container">
+                    <canvas id="audio-quality-chart"></canvas>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn" id="save-audio-quality"><i class="fas fa-save"></i> حفظ النتائج</button>
+                    <button class="action-btn" id="share-audio-quality"><i class="fas fa-share-alt"></i> مشاركة</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="math-explanation">
+            <h3>المعادلات الرياضية المستخدمة</h3>
+            <div class="equation-card">
+                <h4>حاسبة حجم الملف</h4>
+                <p>الحجم (بالبايت) = العرض × الارتفاع × عمق اللون/8 × معدل الإطارات × المدة</p>
+            </div>
+            <div class="equation-card">
+                <h4>مُحسِّن الأبعاد</h4>
+                <p>النسبة = العرض ÷ الارتفاع</p>
+            </div>
+            <div class="equation-card">
+                <h4>محلل كفاءة الضغط</h4>
+                <p>نسبة الضغط = ((الحجم الأصلي - الحجم المضغوط) ÷ الحجم الأصلي) × 100</p>
+            </div>
+            <div class="equation-card">
+                <h4>حاسبة جودة الصوت</h4>
+                <p>حجم الملف = معدل البت × المدة ÷ 8</p>
+                <p>نسبة الإشارة إلى الضوضاء ≈ 6.02 × عمق البت + 1.76</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>حقوق النشر © 2023 - حاسبة وكفاءة الوسائط</p>
+        <p>تم تطويره كمشروع لربط المفاهيم الرياضية بتقنيات الوسائط المتعددة</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
